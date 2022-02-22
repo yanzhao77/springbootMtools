@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.yz</groupId>
+    <artifactId>springbootMtools</artifactId>
+    <version>0.0.1</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>11</java.version>
+        <proj-encoding>UTF-8</proj-encoding>
+        <pagehelper.boot.version>1.3.0</pagehelper.boot.version>
+        <commons.io.version>2.5</commons.io.version>
+        <postgresql.version>42.2.23</postgresql.version>
+        <tk.mybatis.version>2.1.5</tk.mybatis.version>
+        <mybati-spring.version>2.2.0</mybati-spring.version>
+        <thymeleaf-extras-springsecurity5.version>3.0.4.RELEASE</thymeleaf-extras-springsecurity5.version>
+        <commons-net.version>3.8.0</commons-net.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <spring-cloud.version>2021.0.0</spring-cloud.version>
+        <nacos-config-spring-boot.version>0.2.1</nacos-config-spring-boot.version>
+
+    </properties>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.3</version>
+        <relativePath/>
+    </parent>
+
+    <modules>
+        <!-- SecurityOAuth2Server -->
+        <module>./SpringSecurityOAuth2Server</module>
+        <module>./SpringSecurityOAuth2Client</module>
+        <module>./EurekaServer</module>
+        <module>./NacosServer</module>
+        <module>./EurekaProvider</module>
+        <module>./EurekaProvider2</module>
+        <module>./EurekaConsumer</module>
+
+        <module>./JavaMail</module>
+        <module>./JavaMail2</module>
+        <module>./FileUtils</module>
+        <module>./antlrg4</module>
+        <module>./FileUtils</module>
+        <module>./mongoDemo</module>
+        <module>./swaggerdemo</module>
+        <module>./Toolscommon</module>
+
+
+    </modules>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.thymeleaf.extras</groupId>
+                <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+                <version>${thymeleaf-extras-springsecurity5.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>softroad</groupId>
+            <artifactId>SrmCom</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+    </dependencies>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>alimaven spring plugin</id>
+            <name>alimaven spring plugin</name>
+            <url>https://maven.aliyun.com/repository/spring-plugin</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
