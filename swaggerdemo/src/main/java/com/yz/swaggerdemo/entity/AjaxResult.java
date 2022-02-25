@@ -1,6 +1,6 @@
 package com.yz.swaggerdemo.entity;
 
-import mao.linlon.mtools.StringUtils;
+import com.yz.toolscommon.mtools.StringUtils;
 
 import java.util.HashMap;
 

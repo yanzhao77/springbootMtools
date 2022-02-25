@@ -52,6 +52,7 @@
         <module>./mongoDemo</module>
         <module>./swaggerdemo</module>
         <module>./Toolscommon</module>
+        <module>./InterceptorDemo</module>
 
 
     </modules>

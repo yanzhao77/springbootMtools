@@ -41,6 +41,17 @@
             <artifactId>swagger-models</artifactId>
             <version>1.6.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <artifactId>Toolscommon</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <groupId>com.yz</groupId>
+        </dependency>
+
     </dependencies>
 
     <build>

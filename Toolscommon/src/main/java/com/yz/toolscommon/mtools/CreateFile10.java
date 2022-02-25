@@ -1,6 +1,6 @@
 package com.yz.toolscommon.mtools;
 
-import mao.linlon.utils.Const;
+import com.yz.toolscommon.utils.Const;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

@@ -1,20 +1,22 @@
 package com.yz.swaggerdemo.controller;
 
-import com.yz.web.entity.AjaxResult;
-import com.yz.web.entity.UserEntity;
+import com.yz.swaggerdemo.entity.AjaxResult;
+import com.yz.swaggerdemo.entity.UserEntity;
+import com.yz.toolscommon.mtools.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import mao.linlon.mtools.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.yz.web.entity.AjaxResult.error;
-import static com.yz.web.entity.AjaxResult.success;
+import static com.yz.swaggerdemo.entity.AjaxResult.error;
+import static com.yz.swaggerdemo.entity.AjaxResult.success;
+
 
 @Api("用户信息管理")
 @RestController
