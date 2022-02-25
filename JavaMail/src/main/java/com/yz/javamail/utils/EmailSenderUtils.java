@@ -1,30 +1,20 @@
-package com.yz.javamail2.utils;
+package com.yz.javamail.utils;
 
-import com.yz.javamail2.entity.EMailProperties;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import com.yz.javamail.entity.EMailProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import java.io.*;
+import java.io.File;
 import java.util.Date;
-import java.util.Map;
 import java.util.Properties;
 
 @Service

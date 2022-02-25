@@ -1,4 +1,4 @@
-package com.yz.javamail2.entity;
+package com.yz.javamail.entity;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

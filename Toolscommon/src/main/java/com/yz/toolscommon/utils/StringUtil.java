@@ -4,6 +4,11 @@ package com.yz.toolscommon.utils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,11 +16,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtil {
-	
-	
-	public static final char UNDERLINE = '_';
-	public static final char LINE = '-';
-	
+
+
+    public static final char UNDERLINE = '_';
+    public static final char LINE = '-';
+
 
     /**
      * @param express 判断字符串空
@@ -46,7 +51,7 @@ public class StringUtil {
     }
 
     /**
-     * @param num判断是不是数字
+     * @param num 判断是不是数字
      * @return
      */
     public static boolean isNumber(String num) {
@@ -69,19 +74,19 @@ public class StringUtil {
         for (int i = 0; i < lineArr.length; i++) {
             lineChar = lineArr[i];
             switch (lineChar) {
-                case ' ' :
+                case ' ':
                     if (constFlg != ' ') {
                         break;
                     }
                     if (((i + 1 < lineArr.length)
                             && (((bs.length == 0 || !bs[0]) && lineArr[i + 1] == ' ')
-                                    || lineArr[i + 1] == '=' || lineArr[i + 1] == ','))
+                            || lineArr[i + 1] == '=' || lineArr[i + 1] == ','))
                             || ((i > 0) && (lineArr[i - 1] == '=' || lineArr[i - 1] == ','))) {
                         lineArr = ArrayUtils.remove(lineArr, i);
                         i--;
                     }
                     break;
-                case '"' :
+                case '"':
                     if (constFlg == ' ') {
                         constFlg = '"';
                     } else if (constFlg == '"') {
@@ -91,14 +96,14 @@ public class StringUtil {
                         i++;
                     }
                     break;
-                case '\'' :
+                case '\'':
                     if (constFlg == ' ') {
                         constFlg = '\'';
                     } else if (constFlg == '\'') {
                         constFlg = ' ';
                     }
                     break;
-                default :
+                default:
                     break;
             }
         }
@@ -113,21 +118,21 @@ public class StringUtil {
         for (int i = 0; i < lineArr.length; i++) {
             lineChar = lineArr[i];
             switch (lineChar) {
-                case '"' :
+                case '"':
                     if (constFlg == ' ') {
                         constFlg = '"';
                     } else if (constFlg == '"') {
                         constFlg = ' ';
                     }
                     break;
-                case '\'' :
+                case '\'':
                     if (constFlg == ' ') {
                         constFlg = '\'';
                     } else if (constFlg == '\'') {
                         constFlg = ' ';
                     }
                     break;
-                default :
+                default:
                     if (constFlg != ' ') {
                         lineArr = ArrayUtils.remove(lineArr, i);
                         i--;
@@ -138,23 +143,9 @@ public class StringUtil {
         return (new String(lineArr)).trim();
     }
 
+
     /**
-     * @param STR 首字母转小写
-     * @return sTR
-     */
-    public static String toLowerFristChar(String str) {
-        if (StringUtil.isBlank(str))
-            return str;
-
-        if (str.length() == 1)
-            return str.toLowerCase();
-
-        return str.substring(0, 1).toLowerCase() + str.substring(1);
-    }
-
-    
-    /**
-     * @param k39_rec 首字母转大写
+     * @param str 首字母转大写
      * @return K39_rec
      */
     public static String toUpperFristChar(String str) {
@@ -167,7 +158,7 @@ public class StringUtil {
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 
-    
+
     /**
      * @param fileName
      * @return
@@ -178,7 +169,7 @@ public class StringUtil {
 
         return fileName.toLowerCase() + "Mapper";
     }
-    
+
     public static String getMapperNameByMapper(String mapperName) {
         if (StringUtil.isBlank(mapperName))
             return mapperName;
@@ -186,11 +177,10 @@ public class StringUtil {
         return toLowerFristChar(mapperName) + "Mapper";
     }
 
-    
+
     /**
-     * 
      * @param fileName "K39_REC" "TUTB-REC_ABOUT"
-     * @return 			K39Rec   TutbRecAbout
+     * @return K39Rec   TutbRecAbout
      */
     public static String getEntityName(String fileName) {
         if (StringUtil.isBlank(fileName))
@@ -203,23 +193,21 @@ public class StringUtil {
         return fileName;
     }
 
-    /*
-    public static String rTrim(String str) {
-        String rtnStr = "";
-
-        if (str.startsWith(" ")) {
-            rtnStr = InputUtil.subString(str, 0,
-                    str.indexOf(str.trim().substring(0, 1)) + BytesUtil.string2Byte(str.trim()).length);
-        } else {
-            rtnStr = str.trim();
-        }
-
-        return rtnStr;
-    }
-    */
+//    public static String rTrim(String str) {
+//        String rtnStr = "";
+//
+//        if (str.startsWith(" ")) {
+//            rtnStr = InputUtil.subString(str, 0,
+//                    str.indexOf(str.trim().substring(0, 1)) + BytesUtil.string2Byte(str.trim()).length);
+//        } else {
+//            rtnStr = str.trim();
+//        }
+//
+//        return rtnStr;
+//    }
 
     /**
-     * a 数子字符前面补0: 789  ,5位-> 00789  
+     * a 数子字符前面补0: 789  ,5位-> 00789
      */
     public static String numFormat(String str, int len) {
         String zeroStr = "";
@@ -230,10 +218,11 @@ public class StringUtil {
         return zeroStr + str;
     }
 
-    /**a字符串前后补空格space,  "str",7,true ->"str    "  
+    /**
+     * a字符串前后补空格space,  "str",7,true ->"str    "
      * len 字符串总长度
      * flag true:后面补空格
-     * 	false : 前面补空格
+     * false : 前面补空格
      */
     public static String strFormat(String str, int len, boolean flag) {
         String spaceStr = "";
@@ -244,25 +233,24 @@ public class StringUtil {
         return flag ? (str + spaceStr) : (spaceStr + str);
     }
 
-    
+
     /**
      * a根据分隔符拆分字符串为 一行一行的数组
      */
     public static String[] splitLineByChgSign(String inputContext) {
 
-    	if (inputContext == null || inputContext.isEmpty()) {
+        if (inputContext == null || inputContext.isEmpty()) {
             return new String[]{};
         } else {
             return inputContext.split("\n|\r|\r\n");
         }
     }
-    
-    
+
+
     /**
      * 替换指定字符 转驼峰命名
-     * 
      */
-    public static String underlineToCamel(String param,char line) {
+    public static String underlineToCamel(String param, char line) {
         if (param == null || "".equals(param.trim())) {
             return "";
         }
@@ -280,12 +268,12 @@ public class StringUtil {
         }
         return sb.toString();
     }
-    
-    
+
+
     /**
      * 替换指定字符 转驼峰命名
      * [0,9} 下标从0开始,包前不包后
-     * 
+     * <p>
      * mc.start() 匹配到的字符开始索引
      * mc.end() 匹配到的字符结束索引(不包含)
      */
@@ -302,17 +290,77 @@ public class StringUtil {
         }
         return sb.toString();
     }
-    
-    
-    
-    public static List<String> getStringByRegex(String regex, String str) {
-        Matcher m = Pattern.compile(regex).matcher(str);
-        List<String> strArr =new ArrayList<String>();
+
+
+    public static List<String> getStringRex(String str, String rex) {
+        List<String> stringList = new ArrayList<>();
+        Pattern r = Pattern.compile(rex);
+        Matcher m = r.matcher(str);
         while (m.find()) {
-            String s = m.group();
-            strArr.add(s);
-        } 
-        return strArr;
+            stringList.add(m.group());
+        }
+        return stringList;
     }
-    
+
+
+    public static boolean isNull(Object obj) {
+        return obj == null;
+    }
+
+    public static boolean isNotNull(Object obj) {
+        return obj != null;
+    }
+
+
+    /**
+     * @param str 首字母转小写
+     * @return sTR
+     */
+    public static String toLowerFristChar(String str) {
+        if (StringUtil.isBlank(str))
+            return str;
+
+        if (str.length() == 1)
+            return str.toLowerCase();
+
+        return str.substring(0, 1).toLowerCase() + str.substring(1);
+    }
+
+
+    public List<String> stringsub(String str, String rex, String red) {
+        List<String> stringList = new ArrayList<>();
+        if (str.contains(rex)) {
+            str = str.substring(str.indexOf(rex));
+            stringList.add(str.substring(0, str.indexOf(red)).replaceAll(rex, "").trim());
+            stringList.addAll(stringsub(str.substring(str.indexOf(red) + 1), rex, red));
+        }
+        return stringList;
+    }
+
+
+    /**
+     * 关键字 提取到 Set<String> 里
+     * 正则匹配的文字段落抽取到result文件中
+     */
+    public static List<String> siphonFileString(File file, Charset charset) {
+        //匹配文件内的正则
+        StringBuilder bf = new StringBuilder();
+        List<String> stringList = new ArrayList<>();
+//        String lineSep = System.lineSeparator();
+
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset));// a构造一个BufferedReader类来读取文件
+            String s = "";
+            while ((s = br.readLine()) != null) { // a 使用readLine方法，一次读一行
+                // 每读一行换一行
+                bf.append(s);//.append(lineSep);
+                stringList.add(s);
+            }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return stringList;
+    }
+
 }

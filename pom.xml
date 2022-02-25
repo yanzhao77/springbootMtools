@@ -44,7 +44,6 @@
         <module>./EurekaConsumer</module>
 
         <module>./JavaMail</module>
-        <module>./JavaMail2</module>
         <module>./FileUtils</module>
         <module>./antlrg4</module>
         <module>./FileUtils</module>

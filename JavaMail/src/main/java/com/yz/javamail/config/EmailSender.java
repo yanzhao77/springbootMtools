@@ -1,11 +1,10 @@
 package com.yz.javamail.config;
 
+import com.yz.javamail.entity.EmailSendInfo;
+
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
 import java.util.Properties;
 import javax.activation.DataHandler;

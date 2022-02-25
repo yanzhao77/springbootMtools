@@ -1,4 +1,4 @@
-package com.yz.javamail2.controller;
+package com.yz.javamail.controller;
 
 
 import org.springframework.mail.SimpleMailMessage;

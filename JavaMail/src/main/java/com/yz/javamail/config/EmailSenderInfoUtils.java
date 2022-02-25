@@ -1,5 +1,7 @@
 package com.yz.javamail.config;
 
+import com.yz.javamail.entity.EmailSendInfo;
+
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.*;
@@ -12,7 +14,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 
-public class EmailSenderUtils {
+public class EmailSenderInfoUtils {
 
 
     public static void main(String[] args) {
@@ -26,7 +28,6 @@ public class EmailSenderUtils {
         String userName = "756624050@qq.com";
         String password = "cxtfolvvqdzjbegf";
 
-        EmailSenderUtils emailSenderUtils = new EmailSenderUtils();
 
     }
 
@@ -70,9 +71,9 @@ public class EmailSenderUtils {
 
         //发送含附件的邮件
         if (mailInfo.getAttachFileNames() != null) {
-            EmailSenderUtils.sendAttachmentMail(mailInfo, sendEmailDate);
+            EmailSenderInfoUtils.sendAttachmentMail(mailInfo, sendEmailDate);
         } else {
-            EmailSenderUtils.sendTextMail(mailInfo, sendEmailDate);
+            EmailSenderInfoUtils.sendTextMail(mailInfo, sendEmailDate);
         }
     }
 
@@ -107,7 +108,7 @@ public class EmailSenderUtils {
         mailInfo.setContent(emailContent);
 
         //发送无附件的邮件
-        EmailSenderUtils.sendTextMail(mailInfo, sendEmailDate);
+        EmailSenderInfoUtils.sendTextMail(mailInfo, sendEmailDate);
     }
 
 

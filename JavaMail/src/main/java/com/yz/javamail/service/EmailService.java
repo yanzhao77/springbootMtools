@@ -1,4 +1,4 @@
-package com.yz.javamail2.service;
+package com.yz.javamail.service;
 
 public interface EmailService {
 

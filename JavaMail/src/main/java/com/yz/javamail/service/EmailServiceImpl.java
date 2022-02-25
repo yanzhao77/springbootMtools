@@ -1,10 +1,9 @@
-package com.yz.javamail2.service;
+package com.yz.javamail.service;
 
 import com.yz.javamail2.entity.EMailProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

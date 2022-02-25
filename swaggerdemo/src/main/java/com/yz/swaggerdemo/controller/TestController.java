@@ -2,7 +2,8 @@ package com.yz.swaggerdemo.controller;
 
 import com.yz.swaggerdemo.entity.AjaxResult;
 import com.yz.swaggerdemo.entity.UserEntity;
-import com.yz.toolscommon.mtools.StringUtils;
+import com.yz.toolscommon.utils.StringUtil;
+import com.yz.toolscommon.utils.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -51,7 +52,7 @@ public class TestController {
     @ApiImplicitParams({@ApiImplicitParam(name = "userId", value = "用户id", dataType = "Integer", dataTypeClass = Integer.class), @ApiImplicitParam(name = "username", value = "用户名称", dataType = "String", dataTypeClass = String.class), @ApiImplicitParam(name = "password", value = "用户密码", dataType = "String", dataTypeClass = String.class), @ApiImplicitParam(name = "mobile", value = "用户手机", dataType = "String", dataTypeClass = String.class)})
     @PostMapping("/save")
     public AjaxResult save(UserEntity user) {
-        if (StringUtils.isNull(user) || StringUtils.isNull(user.getUserId())) {
+        if (StringUtil.isNull(user) || StringUtil.isNull(user.getUserId())) {
             return error("用户ID不能为空");
         }
         return success(users.put(user.getUserId(), user));
@@ -60,7 +61,7 @@ public class TestController {
     @ApiOperation("更新用户")
     @PutMapping("/update")
     public AjaxResult update(@RequestBody UserEntity user) {
-        if (StringUtils.isNull(user) || StringUtils.isNull(user.getUserId())) {
+        if (StringUtil.isNull(user) || StringUtil.isNull(user.getUserId())) {
             return error("用户ID不能为空");
         }
         if (users.isEmpty() || !users.containsKey(user.getUserId())) {

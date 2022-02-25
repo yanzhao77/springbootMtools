@@ -1,4 +1,4 @@
-package com.yz.javamail.config;
+package com.yz.javamail.entity;
 
 import lombok.Data;
 
