@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+          th:href="@{/bootstrap/3.3.6/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<div th:fragment="apk-form">
+    <form method="post" class="box-header with-border" action="" th:object="${apkVersion}" id="dataFrom"
+          enctype="multipart/form-data">
+        <input type="hidden" name="id" id="id"/>
+        <input type="hidden" name="url" id="url"/>
+        <input type="hidden" name="fileMd5" id="fileMd5"/>
+        <input type="hidden" name="version" id="version"/>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background: #3c8dbc;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">新增</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="form-label col-3">版本说明：</label>
+                            <div class="formControls col-5">
+                                <textarea name="comment" id="comment" cols="" rows="" class="textarea"
+                                          style="width: 400px" placeholder="说点什么...100个字符以内"
+                                          dragonfly="true"></textarea>
+                                <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+                            </div>
+                            <div class="col-4"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">上传版本：</label>
+                            <input type="file" name="uploadfile" id="uploadfile" multiple="multiple"
+                                   class="file-loading"/>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span
+                                class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭
+                        </button>
+                        <input class="btn btn-primary radius" type="button" onclick="save()" value="  提交  "/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+</body>
+<!-- page script -->
+<script>function btn_add() {
+    $("#myModalLabel").text("添加版本");
+    $('#myModal').modal();
+
+}
+
+$("#uploadfile").fileinput({
+    language: 'zh', //设置语言
+    uploadUrl: "/apk_upload", //上传的地址
+    allowedFileExtensions: ['apk'],//接收的文件后缀
+    uploadAsync: true, //默认异步上传
+    showUpload: true, //是否显示上传按钮
+
+    showRemove: true, //显示移除按钮
+    showPreview: true, //是否显示预览
+    showCaption: false,//是否显示标题
+    browseClass: "btn btn-primary", //按钮样式
+    dropZoneEnabled: false,//是否显示拖拽区域
+    maxFileCount: 1, //表示允许同时上传的最大文件个数
+    enctype: 'multipart/form-data',
+    validateInitialCount: true
+});
+//异步上传返回结果处理
+$("#uploadfile").on("fileuploaded", function (event, data, previewId, index) {
+    var response = data.response;
+    alert(response.filePath);
+    $("#fileMd5").val(response.fileMd5);
+    $("#version").val(response.newVersionName);
+    $("#url").val(response.filePath);
+
+});
+//上传前
+
+$('#uploadfile').on('filepreupload', function (event, data, previewId, index) {
+    var form = data.form, files = data.files, extra = data.extra,
+        response = data.response, reader = data.reader;
+});
+</script>
+</html>

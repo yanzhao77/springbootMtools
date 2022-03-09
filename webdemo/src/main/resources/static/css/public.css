@@ -1,0 +1,33 @@
+/*a标签去下划线和点击不变色，div内容居中*/
+a {
+    text-decoration: none;
+    color: #333333;
+}
+
+
+#idiv {
+    text-align: center;
+    border-radius: 20px;
+    width: 300px;
+    height: 350px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+table, th, td {
+    border: 1px solid darkslategray;
+    padding: 10px;
+    margin: auto;
+    text-align: center;
+    font-size: 14px;
+    border-collapse: collapse;
+    width: 80%;
+    border-left: 1px solid #F00;
+    border-top: 1px solid #F00;
+    border-right: 1px solid #F00;
+    border-bottom: 1px solid #F00
+}

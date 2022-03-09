@@ -3,7 +3,6 @@ package com.yz.swaggerdemo.controller;
 import com.yz.swaggerdemo.entity.AjaxResult;
 import com.yz.swaggerdemo.entity.UserEntity;
 import com.yz.toolscommon.utils.StringUtil;
-import com.yz.toolscommon.utils.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

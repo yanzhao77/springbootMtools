@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yz.securityjwtdemo.mapper.UserMapper">
+
+    <select id="getAllUser"
+            resultType="com.yz.securityjwtdemo.entity.Users">
+        SELECT id, "username", "pwd"
+        FROM "users"
+        ORDER BY id
+    </select>
+
+    <select id="getRolesById"
+            resultType="com.yz.securityjwtdemo.entity.RoleInfo">
+        SELECT id, "roleName"
+        FROM "RoleInfo" ri
+        where ri.id in (select ur."RoleId"
+                        from "UserRole" ur
+                        where ur."UserId"
+                                  = #{id});
+
+    </select>
+
+    <select id="selectMenusByUserId" resultType="java.lang.String">
+        select mi."menuName"
+        from users u
+                 left outer join "UserRole" ur on
+            u.id = ur."UserId"
+                 left outer join "RoleMenu" rm on
+            ur."RoleId" = rm."RoleId"
+                 left outer join "MenuInfo" mi on
+            mi.id = rm."MenuId"
+        where u.id = #{id};
+
+    </select>
+
+    <select id="loadUserByUsername"
+            resultType="com.yz.securityjwtdemo.entity.Users">
+        SELECT id, "username", "pwd"
+        from "users"
+        where "username" = #{username}
+        ORDER BY id
+    </select>
+
+    <select id="getUserById"
+            resultType="com.yz.securityjwtdemo.entity.Users">
+        SELECT id, "username", "pwd"
+        from "users"
+        where id = #{id}
+        ORDER BY id
+    </select>
+
+    <!-- <insert id="createUser"> INSERT INTO "user"("name", password) SELECT
+        #{name}, #{password} FROM DUAL WHERE NOT EXISTS(SELECT "name" FROM "users"
+        WHERE "name" = #{name}) </insert> -->
+
+    <delete id="deleteById">
+        delete
+        from "users"
+        where id = #{id}
+    </delete>
+
+    <update id="updateById">
+        update "users"
+        set "username" = #{name},
+            pwd        = #{password}
+        where id = #{id}
+    </update>
+
+    <select id="getUserByData"
+            resultType="com.yz.securityjwtdemo.entity.Users">
+        SELECT id, "username", "pwd"
+        FROM "users"
+        where name = #{name}
+          and password = #{password}
+    </select>
+
+    <insert id="createUser">
+        INSERT INTO "user"("username", pwd)
+        SELECT #{name}, #{password}
+        FROM DUAL
+        WHERE NOT EXISTS(SELECT "username" FROM "users" WHERE "username" = #{name})
+    </insert>
+
+    <delete id="clearQtempByUserId">
+        delete
+        from qtemp q
+        where q.uid = #{id}
+    </delete>
+</mapper>

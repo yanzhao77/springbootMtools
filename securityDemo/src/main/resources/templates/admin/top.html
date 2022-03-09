@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>top</title>
+</head>
+<body>
+	<!--登录注销-->
+	<div class="right menu">
+
+		<!--如果未登录-->
+		<div sec:authorize="!isAuthenticated()">
+			<a class="item" th:href="@{/toLogin}"> <i
+				class="address card icon"></i> 登录
+			</a>
+		</div>
+		<!--如果已登录-->
+		<div sec:authorize="isAuthenticated()">
+			<a class="item"> <i class="address card icon"></i> 用户名：<span
+				sec:authentication="principal.username"></span>&nbsp;&nbsp; 角色：<span
+				sec:authentication="principal.authorities"></span>
+			</a>
+		</div>
+		<div sec:authorize="isAuthenticated()">
+			<a class="item" th:href="@{/logout}"> <i
+				class="address card icon"></i> 注销
+			</a>
+		</div>
+</body>
+</html>

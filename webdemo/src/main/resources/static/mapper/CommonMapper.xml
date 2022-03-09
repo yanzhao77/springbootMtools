@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yz.webdemo.mapper.CommonMapper">
+
+    <select id="selectAllLocks" resultType="java.util.LinkedHashMap">
+        select l.locktype, l.relation, l.pid, l.mode, l.granted, t.oid, t.relname
+        from pg_locks l
+                 join pg_class t on l.relation = t.oid
+        where t.relkind = 'r'
+          and t.relname != 'pg_class'
+    </select>
+
+
+</mapper>

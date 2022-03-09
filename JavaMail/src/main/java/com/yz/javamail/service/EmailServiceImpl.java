@@ -1,6 +1,6 @@
 package com.yz.javamail.service;
 
-import com.yz.javamail2.entity.EMailProperties;
+import com.yz.javamail.entity.EMailProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

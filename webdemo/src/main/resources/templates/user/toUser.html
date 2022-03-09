@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>user</title>
+<link rel="stylesheet" type="text/css" href="../css/public.css" />
+<link href="https://cdn.bootcss.com/semantic-ui/2.4.1/semantic.min.css"
+	rel="stylesheet">
+</head>
+<body>
+	<div class="ui segment" id="index-header-nav" th:fragment="nav-menu">
+		<div class="ui secondary menu">
+			<a class="item" th:href="@{/tologin}">首页</a>
+
+			<!--登录注销-->
+			<div class="right menu">
+
+
+				<!--如果未登录-->
+				<div sec:authorize="!isAuthenticated()">
+					<a class="item" th:href="@{/toLoginForm}"> <i
+						class="address card icon"></i> 登录
+					</a>
+				</div>
+				<!--如果已登录-->
+				<div sec:authorize="isAuthenticated()">
+					<a class="item"> <i class="address card icon"></i> 用户名：<span
+						sec:authentication="principal.username"></span>&nbsp;&nbsp; 角色：<span
+						sec:authentication="principal.authorities"></span>
+					</a>
+				</div>
+				<div sec:authorize="isAuthenticated()">
+					<a class="item" th:href="@{/logout}"> <i
+						class="address card icon"></i> 注销
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="text-align: center">
+		<span style="color: darkslategray; font-size: 30px">欢迎光临！</span>
+		<hr />
+		<table class="list" style="border: 1px solid #0094ff" cellspacing=1>
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>remake</th>
+			</tr>
+			<td th:text="${user.id}"></td>
+			<td th:text="${user.username}"></td>
+			<td th:text="${user.remake}"></td>
+		</table>
+	</div>
+</body>
+</html>

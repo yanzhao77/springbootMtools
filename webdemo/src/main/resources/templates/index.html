@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>首页</title>
+
+<link rel="stylesheet" type="text/css"
+	href="./bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="./bootstrap/css/bootstrap-select.css">
+<link href="https://cdn.bootcss.com/semantic-ui/2.4.1/semantic.min.css"
+	rel="stylesheet">
+
+
+<script src="./js/jquery-3.6.0.js"></script>
+<script src="./js/semantic.min.js"></script>
+<script src="./bootstrap/js/bootstrap.js"></script>
+<script src="./bootstrap/js/bootstrap-select.min.js"></script>
+</head>
+
+<body id="content">
+
+
+	<!--主容器-->
+	<div class="ui container">
+		<div class="ui segment" id="index-header-nav" th:fragment="nav-menu">
+			<div class="ui secondary menu">
+				<a class="item btn btn-primary btn-lg" th:href="@{/index}">首页</a>
+
+				<button class="btn btn-primary btn-lg" data-toggle="modal"
+					data-target="#myModal">送信</button>
+
+
+				<div class="right menu">
+
+					<!-- <a th:href="@{/list}"> <span
+                    class="glyphicon glyphicon-envelope"></span></a> -->
+				<div>
+					 	
+						<a th:href="@{/list}" title="消息"
+						   class=" glyphicon glyphicon-bell">
+						    <label id="count" class="label label-danger" style="right: 0px">12</label>
+						</a>
+					 
+				</div>
+
+					<!--登录注销-->
+					<!--如果未登录-->
+					<div sec:authorize="!isAuthenticated()">
+						<a class="item" th:href="@{/tologin}"> <i
+							class="address card icon"></i> 登录
+						</a>
+					</div>
+
+					<!--如果已登录-->
+					<div sec:authorize="isAuthenticated()">
+						<a class="item"> <i class="address card icon"></i> 用户名：<span
+							sec:authentication="principal.username"></span>&nbsp;&nbsp; 角色：<span
+							sec:authentication="principal.authorities"></span>
+						</a>
+					</div>
+					
+					<div sec:authorize="isAuthenticated()">
+						<a class="item" th:href="@{/logout}"> <i
+							class="address card icon"></i> 注销
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="ui segment" style="text-align: center">
+			<span th:text="${#authentication.getAuthorities()}"></span>
+		</div>
+
+		<div>
+			<br>
+			<div class="ui three column stackable grid">
+				<div class="column" sec:authorize="hasRole('toUser')">
+					<div class="ui raised segment">
+						<div class="ui">
+							<div class="content">
+								<h5 class="content">User</h5>
+								<hr>
+								<div>
+									<a th:href="@{/user/toUser}"> <i class="bullhorn icon"></i>
+										show User
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="column" sec:authorize="hasRole('allUser')">
+					<div class="ui raised segment">
+						<div class="ui">
+							<div class="content">
+								<h5 class="content">admin</h5>
+								<hr>
+								<div>
+									<a th:href="@{/user/list}"><i class="bullhorn icon"></i>
+										Show All Users</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</body>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">信息内容</h4>
+			</div>
+			<div class="container">
+				<form id="updateform">
+					<div class="form-group">
+						<label>内容:</label> <input type="text" class="form-control"
+							style="width: 50%" name="msgData" id="msgData"
+							placeholder="placeholder">
+					</div>
+					<div class="form-group">
+						<label>級別:</label> <select class="selectpicker" id="msgLevel"
+							name="msgLevel">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3" selected>3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label>Consumer:</label> <select class="selectpicker"
+							name="msgConsumer">
+							<option value="0"></option>
+							<option value="1">用戶1</option>
+							<option value="2">用戶2</option>
+							<option value="3">用戶3</option>
+							<option value="4">用戶4</option>
+							<option value="5">用戶5</option>
+						</select>
+					</div>
+
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" onclick="add_info()">提交</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal -->
+</div>
+
+
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">消息列表</h4>
+			</div>
+			<div class="container">
+				<ul class="list-group" style="width: 50%">
+					<li class="list-group-item"><span class="badge">14</span> Cras
+						justo odio</li>
+				</ul>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" onclick="add_info()">提交</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal -->
+</div>
+<script src="./js/msg.js"></script>
+</html>
