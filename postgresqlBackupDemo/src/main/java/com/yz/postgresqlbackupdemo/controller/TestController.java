@@ -1,6 +1,5 @@
 package com.yz.postgresqlbackupdemo.controller;
 
-import com.yz.postgresqlbackupdemo.Utils.ProConfig;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
