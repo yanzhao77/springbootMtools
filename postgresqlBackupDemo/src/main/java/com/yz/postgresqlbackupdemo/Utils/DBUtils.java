@@ -1,6 +1,8 @@
 package com.yz.postgresqlbackupdemo.Utils;
 
 import com.yz.postgresqlbackupdemo.mapper.PostgreMapper;
+import com.yz.toolscommon.FileUtil.FileUtils;
+import com.yz.toolscommon.soft.bigfileSort.FileUtil;
 import com.yz.toolscommon.utils.StringUtil;
 import lombok.SneakyThrows;
 import org.apache.ibatis.jdbc.ScriptRunner;
@@ -8,6 +10,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.postgresql.jdbc.PgConnection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.support.EncodedResource;
+import org.springframework.jdbc.datasource.init.ScriptUtils;
 
 import javax.servlet.http.PushBuilder;
 import java.io.*;
@@ -39,7 +44,7 @@ public class DBUtils {
      * 执行sql脚本文件 使用Spring工具类
      */
     public void runSqlBySpringUtils() throws Exception {
-       /* try {
+        try {
             SqlSession sqlSession = sqlSessionFactory.openSession();
             Connection conn = sqlSession.getConnection();
             ClassPathResource rc = new ClassPathResource("脚本.Sql", PostgreMapper.class);
@@ -48,21 +53,9 @@ public class DBUtils {
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
-        }*/
+        }
     }
 
-    private static void mybatisExec() throws ClassNotFoundException, SQLException {
-    /*    Class.forName(driver);
-        Connection conn = DriverManager.getConnection(url, username, password);
-        ScriptRunner runner = new ScriptRunner(conn);
-        try {
-            runner.setStopOnError(true);
-            runner.runScript(new FileReader(file));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        conn.close();*/
-    }
 
     public void clearTable(String tableName) {
         postgreMapper.truncateTable(tableName);
@@ -108,32 +101,105 @@ public class DBUtils {
         return fileList;
     }
 
+    /**
+     * バックアップテーブル
+     *
+     * @param dbpath
+     * @param dbname
+     * @param dbUrl
+     * @param username
+     * @param tableName
+     * @param backuppath
+     * @param typeFile
+     * @param fromUrl
+     */
+    @SneakyThrows
+    public static void cpyToTap(String dbpath, String dbname, String dbUrl, String username, String tableName,
+                                String backuppath, String typeFile, String fromUrl) {
+        if ("0".equals(typeFile)) {
+            FileUtil.copyFile(fromUrl, backuppath, true);
+        } else {
+            File file = new File(backuppath);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            backuppath = backuppath + dbname + "." + tableName + ".backup";// バックアップを生成するファイル名
+
+            Runtime rt = Runtime.getRuntime();// JVMの運用環境を得る
+            StringBuffer cmdbuf = new StringBuffer();
+            cmdbuf.append(dbpath); // データベース実行EXE
+            cmdbuf.append(" --dbname=" + dbname);// データベース名
+            cmdbuf.append(" --host=" + dbUrl);
+            cmdbuf.append(" --username=" + username); // ユーザー名
+            cmdbuf.append(" --no-password --data-only"); // テーブルのみのバックアップ
+            cmdbuf.append(" --table=" + tableName);// バックアップされたテーブル名
+            cmdbuf.append(" --inserts --column-inserts --encoding=UTF8 --disable-dollar-quoting"); // COPYコマンドではなくINSERTコマンドとしてデータをダンプし、列名付きINSERTコマンドとしてデータをダンプする
+            cmdbuf.append(" --file=" + backuppath); // バックアップのパス
+
+            try {
+                // CMD呼び出し
+                System.out.println(cmdbuf);
+                Process process = rt.exec(cmdbuf.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 
     /**
-     * @param objName    备份对象
-     * @param dbpath     对象所在的library
-     * @param backuppath 对象要备份的savf文件
-     * @param isClear
-     * @param isDtaCpr
-     * @return
+     * バックアップテーブル
+     *
+     * @param dbpath     psql.exe
+     * @param dbname
+     * @param dbUrl
+     * @param username
+     * @param tableName
+     * @param backuppath scriptDir
+     * @param typeFile
+     * @param fromUrl
      */
-    public static boolean backupObjAct(String objName, String dbpath, String backuppath) {
-        StringBuffer cmdbuf = new StringBuffer();
-        cmdbuf.append("cmd /c pg_dump");
-        cmdbuf.append(" -h " + HOST); // 主机
-        cmdbuf.append(" -U " + USERNAME); // 用户
-        cmdbuf.append(" -d " + DBNAME); // 数据库
-        cmdbuf.append(" -Ft ");
-        cmdbuf.append(" --column-inserts "); // --column-inserts:以INSERT命令转存数据
-//		cmdbuf.append(" -a "); // 只输出数据
-        cmdbuf.append(" -c "); // 输出数据包含删表语句 drop table
-        cmdbuf.append(" -b "); // --blobs 在转储中包括大对象
-        cmdbuf.append(" -t " + dbpath + "." + objName); // 输出文件或目录名 -t指定表
-        cmdbuf.append(" -f " + backuppath + "\\" + objName + ".tar");
-        //cmdbuf.append("-E utf8 "); // 编码
-//        backupAct(cmdbuf.toString());
+    @SneakyThrows
+    public static void fileRestoreTable(String dbpath, String dbname, String dbUrl, String username,
+                                        String backupDirPath) {
+        File backupDirfile = new File(backupDirPath);
 
-        return true;
+        if (backupDirfile.isDirectory()) {
+            List<File> fileList = new ArrayList<>();
+            fileList = FileUtils.listFile(backupDirfile);
+
+            try {
+                for (File scriptFile : fileList) {
+                    Runtime rt = Runtime.getRuntime();// JVMの運用環境を得る
+                    StringBuffer cmdbuf = new StringBuffer();
+                    cmdbuf.append(dbpath); // データベース実行EXE
+                    cmdbuf.append(" --dbname=" + dbname);// データベース名
+                    cmdbuf.append(" --host=" + dbUrl);
+                    cmdbuf.append(" --username=" + username); // ユーザー名
+                    cmdbuf.append(" --no-password"); // テーブルのみのバックアップ
+                    cmdbuf.append(" --file=" + scriptFile.getPath()); // バックアップのパス
+                    // CMD呼び出し
+                    System.out.println(cmdbuf);
+                    Process process = rt.exec(cmdbuf.toString());
+                    byte[] readInputStream = readInputStream(process.getErrorStream());
+                    System.out.println("Error コンテンツを印刷する：" + new String(readInputStream));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public static byte[] readInputStream(InputStream inputStream) throws IOException {
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        while ((len = inputStream.read(buffer)) != -1) {
+            bos.write(buffer, 0, len);
+        }
+        bos.close();
+        return bos.toByteArray();
     }
 
 }
