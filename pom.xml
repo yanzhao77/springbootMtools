@@ -15,9 +15,9 @@
         <proj-encoding>UTF-8</proj-encoding>
         <pagehelper.boot.version>1.3.0</pagehelper.boot.version>
         <commons.io.version>2.5</commons.io.version>
-        <postgresql.version>42.2.23</postgresql.version>
-        <tk.mybatis.version>2.1.5</tk.mybatis.version>
-        <mybati-spring.version>2.2.0</mybati-spring.version>
+        <postgresql.version>42.3.3</postgresql.version>
+        <tk.mybatis.version>4.2.1</tk.mybatis.version>
+        <mybatis-spring.version>2.2.2</mybatis-spring.version>
         <thymeleaf-extras-springsecurity5.version>3.0.4.RELEASE</thymeleaf-extras-springsecurity5.version>
         <commons-net.version>3.8.0</commons-net.version>
         <maven.compiler.source>11</maven.compiler.source>
@@ -35,28 +35,30 @@
 
     <modules>
         <!-- SecurityOAuth2Server -->
-<!--        <module>./SpringSecurityOAuth2Server</module>-->
-<!--        <module>./SpringSecurityOAuth2Client</module>-->
-<!--        <module>./EurekaServer</module>-->
-<!--        <module>./NacosServer</module>-->
-<!--        <module>./EurekaProvider</module>-->
-<!--        <module>./EurekaConsumer</module>-->
+        <module>./SpringSecurityOAuth2Server</module>
+        <module>./SpringSecurityOAuth2Client</module>
+        <module>./EurekaServer</module>
+        <module>./NacosServer</module>
+        <module>./EurekaProvider</module>
+        <module>./EurekaConsumer</module>
 
-<!--        <module>./JavaMail</module>-->
-<!--        <module>./FileUtils</module>-->
-<!--        <module>./antlrg4</module>-->
-<!--        <module>./FileUtils</module>-->
-<!--        <module>./mongoDemo</module>-->
-<!--        <module>./swaggerdemo</module>-->
+        <module>./JavaMail</module>
+        <module>./FileUtils</module>
+        <module>./antlrg4</module>
+        <module>./FileUtils</module>
+        <module>./mongoDemo</module>
+        <module>./swaggerdemo</module>
         <module>./Toolscommon</module>
-<!--        <module>./InterceptorDemo</module>-->
-<!--        <module>./webdemo</module>-->
-<!--        <module>./springboot_fileinputdemo</module>-->
-<!--        <module>./securityDemo</module>-->
-<!--        <module>./aopDemo</module>-->
-<!--        <module>./securityDemo</module>-->
-<!--        <module>./securityJwtDemo</module>-->
-<!--        <module>./binaryTreeDemo</module>-->
+        <module>./InterceptorDemo</module>
+        <module>./webdemo</module>
+        <module>./springboot_fileinputdemo</module>
+        <module>./securityDemo</module>
+        <module>./aopDemo</module>
+        <module>./securityDemo</module>
+        <module>./securityJwtDemo</module>
+        <module>./binaryTreeDemo</module>
+        <module>./markdemofx</module>
+        <module>./postgresqlBackupDemo</module>
 
     </modules>
 
@@ -68,11 +70,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>softroad</groupId>
-            <artifactId>SrmCom</artifactId>
-            <version>1.0.0</version>
-        </dependency>
 
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
