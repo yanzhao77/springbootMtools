@@ -23,25 +23,13 @@ public class TestController {
     @Autowired
     SqlSession session;
 
-    @Autowired
-    ProConfig proConfig;
-
-    @Value("spring.datasource.url")
-    public String url;
-
-    @Value("spring.datasource.username")
-    public String username;
-
-    @Value("spring.datasource.password")
-    public String pwd;
-
     @RequestMapping("/test")
     public String test() {
         if (null != session) {
             Connection connection = session.getConnection();
             System.out.println(connection);
             ScriptRunner runner = new ScriptRunner(connection);
-            System.out.println(url);
+
             String filename = "E:\\App\\Data\\sql\\_MenuInfo__202203221938.sql";
             try {
                 connection.commit();

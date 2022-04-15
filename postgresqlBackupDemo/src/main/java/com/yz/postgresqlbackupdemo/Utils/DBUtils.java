@@ -117,7 +117,7 @@ public class DBUtils {
     public static void cpyToTap(String dbpath, String dbname, String dbUrl, String username, String tableName,
                                 String backuppath, String typeFile, String fromUrl) {
         if ("0".equals(typeFile)) {
-            FileUtil.copyFile(fromUrl, backuppath, true);
+//            FileUtil.copyFile(fromUrl, backuppath, true);
         } else {
             File file = new File(backuppath);
             if (!file.exists()) {

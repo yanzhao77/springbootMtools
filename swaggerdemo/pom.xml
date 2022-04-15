@@ -51,6 +51,12 @@
             <version>0.0.1-SNAPSHOT</version>
             <groupId>com.yz</groupId>
         </dependency>
+        <dependency>
+            <groupId>de.gerdi-project</groupId>
+            <artifactId>GSON</artifactId>
+            <version>6.0.6</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 

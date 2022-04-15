@@ -11,10 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.postgresql.jdbc.PgConnection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileReader;
 import java.sql.Connection;
@@ -35,8 +37,11 @@ class PostgresqlBackupDemoApplicationTests {
     @Autowired
     PostgreMapper postgreMapper;
 
-    @Autowired
+    @Resource
     SqlSessionFactory sqlSessionFactory;
+
+    @Autowired
+    DataSourceProperties dataSourceProperties;
 
     @Test
     void contextLoads() {
@@ -107,7 +112,7 @@ class PostgresqlBackupDemoApplicationTests {
             Connection connection = sqlSession.getConnection();
 
             Statement statement = connection.createStatement();
-            String sql="select * from users  ORDER BY id";
+            String sql = "select * from users  ORDER BY id";
             ResultSet resultSet = statement.executeQuery(sql);
             System.out.println(resultSet);
 
@@ -115,5 +120,29 @@ class PostgresqlBackupDemoApplicationTests {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    void dbUrlTest() {
+
+        try {
+
+            SqlSession sqlSession = sqlSessionFactory.openSession();
+            Connection connection = sqlSession.getConnection();
+
+            Statement statement = connection.createStatement();
+            String sql = "select * from users  ORDER BY id";
+            ResultSet resultSet = statement.executeQuery(sql);
+            System.out.println(resultSet);
+
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void dbtest() {
+        System.out.println(111);
     }
 }

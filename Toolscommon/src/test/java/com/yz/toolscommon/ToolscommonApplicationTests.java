@@ -1,6 +1,8 @@
 package com.yz.toolscommon;
 
 import com.yz.toolscommon.soft.sort.SortUtils;
+import com.yz.toolscommon.utils.StringUtil;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -39,7 +41,7 @@ class ToolscommonApplicationTests {
         for (int i = 0; i < 50000; i++) {
             integerList.add((int) (Math.random() * 10000000));
         }
-        Integer[] arr1=new Integer[integerList.size()];
+        Integer[] arr1 = new Integer[integerList.size()];
         integerList.toArray(arr1);
         SortUtils.bubbleSort(arr1);
 
@@ -49,8 +51,44 @@ class ToolscommonApplicationTests {
     }
 
     @Test
-    public void test4(){
+    public void test4() {
         int i = (int) (Math.random() * 10000000);
         System.out.println(i);
+
+    }
+
+    @Test
+    public void test5() {
+
+        String rex = "[^/]+(?!.*/)";
+
+        String str = "D:\\kpp\\01_移行前\\06_ソース一式\\棚卸結果_20210906\\正味資産_0926\\オンライン\\CLP\\TKKSRCL\\QCLPSRC\\XRCVRLD.CLP(33):    \n" +
+                "D:\\kpp\\01_移行前\\06_ソース一式\\棚卸結果_20210906\\正味資産_0926\\オンライン\\CLP\\TKKSRCL\\QCLPSRC\\XSNDRLD.CLP(33):    \n" +
+                "D:\\kpp\\01_移行前\\06_ソース一式\\棚卸結果_20210906\\正味資産_0926\\バッチ\\CLP\\TKKSRCL\\QCLPSRC\\DC3$M540.CLP(512):      \n" +
+                "D:\\kpp\\01_移行前\\06_ソース一式\\棚卸結果_20210906\\正味資産_0926\\バッチ\\CLP\\TKKSRCL\\QCLPSRC\\DD3$K100.CLP(56):       \n" +
+                "D:\\kpp\\01_移行前\\06_ソース一式\\棚卸結果_20210906\\正味資産_0926\\バッチ\\CLP\\TKKSRCL\\QCLPSRC\\FE3$R020.CLP(26):       \n";
+
+        List<String> stringRex = StringUtil.getStringRex(str, rex);
+
+        System.out.println(stringRex.get(0));
+    }
+
+
+    @Test
+    public void test6() {
+
+//        Map<String, Integer> posMap = new LinkedHashMap<String, Integer>();
+//        posMap.put("key1", 10);
+//        posMap.put("key2", 25);
+//        posMap.put("key3", 40);
+//
+//
+//        Object maxValue = StringUtil.getMaxValue(posMap);
+        String maxValue = StringUtil.getLenStr(40);
+        String value = "1313";
+        int index = 21;
+        String str = StringUtil.replaceStrForEndIndex(maxValue, index, value);
+        System.out.println(maxValue.length());
+        System.out.println(str);
     }
 }

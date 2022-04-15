@@ -9,9 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -300,6 +298,44 @@ public class StringUtil {
             stringList.add(m.group());
         }
         return stringList;
+    }
+
+    /**
+     * 获取最大的map值
+     *
+     * @param map
+     * @return
+     */
+    public static Object getMaxValue(Map<String, Integer> map) {
+        if (map == null)
+            return null;
+        int length = map.size();
+        Collection<Integer> c = map.values();
+        Object[] obj = c.toArray();
+        Arrays.sort(c.toArray());
+        return obj[length - 1];
+    }
+
+    public static String getLenStr(int length) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            sb.append(" ");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 文字の最後の文字位置に基づいて置換
+     *
+     * @param allValue
+     * @param endpos
+     * @param newValue
+     * @return
+     */
+    public static String replaceStrForEndIndex(String allValue, Integer endpos, String newValue) {
+        StringBuilder sbuilder = new StringBuilder(allValue);
+        sbuilder.replace(endpos - newValue.length(), endpos, newValue);
+        return sbuilder.toString();
     }
 
 

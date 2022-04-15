@@ -44,6 +44,12 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.47</version>
         </dependency>
+        <dependency>
+            <groupId>de.gerdi-project</groupId>
+            <artifactId>GSON</artifactId>
+            <version>6.0.6</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 
