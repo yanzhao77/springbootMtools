@@ -13,7 +13,7 @@ public class DataUtil {
         System.out.println(date);
     }
 
-    public String getDate(Timestamp timestamp, boolean flag) {
+    public static String getDate(Timestamp timestamp, boolean flag) {
         String str = flag ? "" : ".";
         DateFormat sdf = new SimpleDateFormat("yy" + str + "MM" + str + "dd");
         return  sdf.format(timestamp);

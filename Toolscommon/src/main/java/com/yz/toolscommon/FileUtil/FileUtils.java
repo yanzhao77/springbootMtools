@@ -1,12 +1,13 @@
 package com.yz.toolscommon.FileUtil;
 
 import com.yz.toolscommon.utils.StringUtil;
+import org.springframework.core.io.ClassPathResource;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 public class FileUtils {
 
@@ -174,4 +175,80 @@ public class FileUtils {
         return map;
     }
 
+
+    /**
+     * 输出给定目录下的文件，包括子目录中的文件
+     *
+     * @param dirPath 给定的目录
+     */
+    public Map<String, Map> readFiles(String dirPath, Map<String, Map> fileAndDirMap) {
+        // 建立当前目录中文件的File对象
+        File curfile = new File(dirPath);
+        // 取得代表目录中所有文件的File对象数组
+        File[] list = curfile.listFiles();
+        if (list != null) {
+            for (File file : list) {
+                if (file.isDirectory()) {
+                    Map<String, Map> map = new HashMap<>();
+                    fileAndDirMap.put(file.getPath(), map);
+                    readFiles(file.getPath(), map);
+                } else {
+                    fileAndDirMap.put(file.getPath(), null);
+                }
+            }
+        }
+        // 遍历file数组
+        return fileAndDirMap;
+    }
+
+
+    /**
+     * 获取文件内容
+     *
+     * @param fielname
+     * @return
+     */
+    public String getResourcesByStream(String fielname) {
+        String str = "";
+        ClassPathResource resource = new ClassPathResource(fielname);
+        try {
+            InputStream inputStream = resource.getInputStream();
+            // 将流转为字符串
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            try {
+                byte[] b = new byte[10240];
+                int n;
+                while ((n = inputStream.read(b)) != -1) {
+                    outputStream.write(b, 0, n);
+                }
+            } catch (Exception e) {
+                try {
+                    inputStream.close();
+                    outputStream.close();
+                } catch (Exception e1) {
+                }
+            }
+            str = outputStream.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+    /**
+     * 获取文件
+     *
+     * @param fielname
+     * @return
+     */
+    public File getResourcesForFile(String fielname) {
+        File file = null;
+        ClassPathResource resource = new ClassPathResource(fielname);
+        try {
+            file= resource.getFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
 }

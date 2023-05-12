@@ -24,14 +24,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Users implements Serializable, UserDetails {
+public class Users implements UserDetails
+{
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	@Max(value = 10000, message = "最大10000")
+    @Max(value = 10000, message = "最大10000")
     @Min(value = 1, message = "最小1")
     @NotNull(message = "不能为空")
 	
@@ -47,48 +43,48 @@ public class Users implements Serializable, UserDetails {
 
     private String remake;
     private RoleInfo roleInfo;
-    
+
     private String menuus;
-    
-    
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-      return Arrays.asList(new SimpleGrantedAuthority(menuus));
+        return Arrays.asList(new SimpleGrantedAuthority(menuus));
     }
 
     @Override
     public String getPassword() {
-      return pwd;
+        return pwd;
     }
 
     @Override
     public String getUsername() {
-      return username;
+        return username;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-      return true;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-      return true;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-      return true;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-      return true;
+        return true;
     }
-    
+
     public String getRoleName() {
-		return roleInfo.getRoleName();
-	}
+        return roleInfo.getRoleName();
+    }
 
 
 }

@@ -12,4 +12,12 @@
     <update id="truncateTable">
         TRUNCATE TABLE #{tablename}
     </update>
+
+    <select id="selectAllLocks" resultType="java.util.LinkedHashMap">
+        select l.locktype, l.relation, l.pid, l.mode, l.granted, t.oid, t.relname
+        from pg_locks l
+                 join pg_class t on l.relation = t.oid
+        where t.relkind = 'r'
+          and t.relname != 'pg_class'
+    </select>
 </mapper>

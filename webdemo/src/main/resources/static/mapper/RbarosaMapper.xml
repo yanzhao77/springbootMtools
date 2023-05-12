@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yz.webdemo.mapper.RbarosaMapper">
+
+    <resultMap id="BaseResultMap" type="com.yz.webdemo.mapper.entity.TableRowDto">
+        <id column="CHKP_KEY" jdbcType="VARCHAR" property="chkpKey" />
+        <result column="FILLER" jdbcType="VARCHAR" property="filler" />
+        <result column="CHKP_S_Y" jdbcType="VARCHAR" property="chkpSY" />
+        <result column="FILLER" jdbcType="VARCHAR" property="filler" />
+        <result column="CHKP_S_Y" jdbcType="VARCHAR" property="chkpSY" />
+        <result column="FILLER" jdbcType="VARCHAR" property="filler" />
+        <result column="CHKP_S_Y" jdbcType="VARCHAR" property="chkpSY" />
+        <result column="FILLER" jdbcType="VARCHAR" property="filler" />
+        <result column="CHKP_S_Y" jdbcType="VARCHAR" property="chkpSY" />
+
+        <result column="CHKP_S_M" jdbcType="NUMERIC" property="chkpSM" />
+    </resultMap>
+
+    <select id="selectBySql" parameterType="String" resultMap="BaseResultMap">
+        ${sql}
+    </select>
+
+</mapper>

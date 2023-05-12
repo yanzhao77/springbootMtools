@@ -14,18 +14,18 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import javax.annotation.Resource;
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 
 @SpringBootTest
 class JavaMailApplicationTests {
 
-    @Resource
-    JavaMailSender javaMailSender;
-    @Resource
-    private ApplicationContext ioc;
+//    @Resource
+//    JavaMailSender javaMailSender;
 
     /**
      * 普通邮件发送
@@ -51,7 +51,7 @@ class JavaMailApplicationTests {
         message.setText("这是测试邮件的正文");
 
         // 发送邮件
-        javaMailSender.send(message);
+//        javaMailSender.send(message);
     }
 
     @Autowired
@@ -132,7 +132,7 @@ class JavaMailApplicationTests {
 
     @Test
     void test3() {
-        String fromaddr = "756624050@qq.com";
+        String fromaddr = "mailtest61@srtest.cc";
         String toaddr = "yanz@softroad.com.cn";
         String title = "【测试标题】Testing Subject-myself-eml文件";
 //        String title = "【测试标题】Testing Subject-myself-eml文件_含多个附件";
@@ -157,7 +157,6 @@ class JavaMailApplicationTests {
                 System.out.println(stringRex);
             }
         }
-
     }
 
 
