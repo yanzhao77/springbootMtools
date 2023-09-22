@@ -1,0 +1,19 @@
+module com.example.markdemofx {
+    requires javafx.controls;
+    requires javafx.fxml;
+
+
+    requires org.kordamp.bootstrapfx.core;
+    requires MathParser.org.mXparser;
+    requires spring.context;
+    requires springboot.javafx.support;
+    requires lombok;
+    requires hutool.all;
+    requires spring.boot;
+    requires spring.boot.autoconfigure;
+
+    opens com.example.markdemofx to javafx.fxml;
+    exports com.example.markdemofx;
+    exports com.example.markdemofx.old;
+    opens com.example.markdemofx.old to javafx.fxml;
+}
