@@ -41,14 +41,14 @@ public class TreeData extends MultiwayTree {
      */
     public void merge(Node oldNodeRoot, Node newNodeRoot) {
         int nodeItemNum = oldNodeRoot.getNodeItemNum() == oldNodeRoot.getNodeItemNum() ? oldNodeRoot.getNodeItemNum() : 0;
-        while (loopForItemNum(nodeItemNum, oldNodeRoot).size() > 0) {
+        while (!loopForItemNum(nodeItemNum, oldNodeRoot).isEmpty()) {
             List<Node> oldNodeList = loopForItemNum(nodeItemNum, oldNodeRoot);
             List<Node> newNodeList = loopForItemNum(nodeItemNum, newNodeRoot);
 
             for (int index = 0; index < oldNodeList.size(); index++) {
                 Node oldNode = oldNodeList.get(index);
 
-                if (oldNode.isCheckMergeIdFlag() == false) {
+                if (!oldNode.isCheckMergeIdFlag()) {
                     // 查看是旧节点是否在新树中存在，如果不存在，就删除
                     if (newNodeList.stream().noneMatch(newChildNode -> newChildNode.getId().equals(oldNode.getId()))) {
                         delete(oldNode.getParentNode(), oldNode.getId());
@@ -56,14 +56,14 @@ public class TreeData extends MultiwayTree {
                 }
 
                 // 如果值不相同，就合并
-                if (oldNode.isCheckMergeIdFlag() == true && oldNode.isCheckMergeValueFlag() == false) {
+                if (oldNode.isCheckMergeIdFlag() && !oldNode.isCheckMergeValueFlag()) {
                     oldNode.updateData(loopById(oldNode.getId(), newNodeRoot, nodeItemNum, index));
                 }
             }
 
             for (int i = 0; i < newNodeList.size(); i++) {
                 Node newNode = newNodeList.get(i);
-                if (newNode.isCheckMergeIdFlag() == false) {
+                if (!newNode.isCheckMergeIdFlag()) {
                     List<Node> parentNodeList = loopForItemNum(newNode.getParentNode().getNodeItemNum(), newNodeRoot);
                     int parentNodeIndex = 0;
                     for (int i1 = 0; i1 < parentNodeList.size(); i1++) {
@@ -92,7 +92,7 @@ public class TreeData extends MultiwayTree {
 
         int nodeItemNum = oldNodeRoot.getNodeItemNum() == newNodeRoot.getNodeItemNum() ? oldNodeRoot.getNodeItemNum() : 1;
         loopForItemNum(nodeItemNum);
-        while (loopForItemNum(nodeItemNum).size() > 0) {
+        while (!loopForItemNum(nodeItemNum).isEmpty()) {
 
             List<Node> oldNodeList = loopForItemNum(nodeItemNum, oldNodeRoot);
             List<Node> newNodeList = loopForItemNum(nodeItemNum, newNodeRoot);
@@ -139,7 +139,7 @@ public class TreeData extends MultiwayTree {
         for (Map.Entry<String, Object> treeMapEntry : treeMap.entrySet()) {
             if (treeMapEntry.getValue() instanceof String) {
                 newNode = add(parentNode, treeMapEntry.getKey(), String.valueOf(treeMapEntry.getValue()));
-            } else if (treeMapEntry.getValue() instanceof ArrayList) {
+            } else if (treeMapEntry.getValue() instanceof ArrayList ) {
                 ArrayList<TreeMap<String, Object>> treeMapList = (ArrayList<TreeMap<String, Object>>) treeMapEntry.getValue();
                 for (TreeMap<String, Object> treeMapItem : treeMapList) {
                     loadTreeMap(treeMapItem, newNode);

@@ -1,6 +1,9 @@
 package com.example.markdemofx.ctrl;
 
+import cn.hutool.aop.interceptor.CglibInterceptor;
 import cn.hutool.core.date.DateUtil;
+import com.example.markdemofx.inter.AspectLogAnnotation;
+import com.example.markdemofx.inter.FxInvocationHandler;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -23,6 +26,7 @@ import java.util.ResourceBundle;
  */
 @Slf4j
 @FXMLController
+@FxInvocationHandler
 public class MainCtrl implements Initializable {
 
     // 主容器
@@ -39,6 +43,7 @@ public class MainCtrl implements Initializable {
      * 弹出框按钮单击事件
      * @param actionEvent
      */
+    @AspectLogAnnotation
     public void onBtnAlertClick(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("当前时间：" + DateUtil.now());
@@ -49,6 +54,7 @@ public class MainCtrl implements Initializable {
      * 选择文件按钮单机事件
      * @param actionEvent
      */
+    @AspectLogAnnotation
     public void onBtnChooseFileClick(ActionEvent actionEvent) {
         Window window = rootPane.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
