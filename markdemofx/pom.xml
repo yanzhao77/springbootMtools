@@ -13,10 +13,6 @@
         <version>0.0.1</version>
     </parent>
 
-    <properties>
-        <jupiter.version>5.8.2</jupiter.version>
-    </properties>
-
     <dependencies>
 
         <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
@@ -43,7 +39,7 @@
         <dependency>
             <groupId>com.vladsch.flexmark</groupId>
             <artifactId>flexmark-all</artifactId>
-            <version>0.62.2</version>
+            <version>0.64.6</version>
             <scope>test</scope>
         </dependency>
 
@@ -92,11 +88,13 @@
             <version>6.0.6</version>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>org.mariuszgromada.math</groupId>
             <artifactId>MathParser.org-mXparser</artifactId>
             <version>5.2.1</version>
         </dependency>
+
     </dependencies>
 
     <build>

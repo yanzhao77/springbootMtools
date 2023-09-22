@@ -4,6 +4,7 @@ module com.example.markdemofx {
 
 
     requires org.kordamp.bootstrapfx.core;
+    requires MathParser.org.mXparser;
 
     opens com.example.markdemofx to javafx.fxml;
     exports com.example.markdemofx;

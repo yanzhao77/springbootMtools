@@ -6,17 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class DataUtil {
-    public static void main(String[] args) {
-        Timestamp time1 = new Timestamp(System.currentTimeMillis());
-        DataUtil dataUtil = new DataUtil();
-        String date = dataUtil.getDate(time1, false);
-        System.out.println(date);
-    }
 
     public static String getDate(Timestamp timestamp, boolean flag) {
         String str = flag ? "" : ".";
         DateFormat sdf = new SimpleDateFormat("yy" + str + "MM" + str + "dd");
-        return  sdf.format(timestamp);
+        return sdf.format(timestamp);
     }
 
     public void aa() {
@@ -41,7 +35,7 @@ public class DataUtil {
 
         int day = now.get(Calendar.HOUR_OF_DAY);
         String str = flag ? "" : ".";
-        byte[] n=new byte[]{};
+        byte[] n = new byte[]{};
         return yearStr + str + month + str + day;
     }
 }

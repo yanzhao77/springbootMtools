@@ -1,6 +1,6 @@
 package com.yz.toolscommon.mtools;
 
-import com.yz.toolscommon.utils.Const;
+import com.yz.toolscommon.config.Const;
 
 import java.io.*;
 import java.util.ArrayList;

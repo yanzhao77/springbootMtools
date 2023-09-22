@@ -83,11 +83,6 @@ public class DataUtils
         return "" + days + "天" + hours + "小时" + minutes + "分" + seconds + "秒";
     }
 
-    public static void main(String[] args) throws IOException {
-
-        String ssssssYY = getNowDateFormat("HHddMMYY", getNowDate());
-        System.out.println(ssssssYY);
-    }
 
     public void loadPropertiesFile() throws IOException {
         Properties properties = new Properties();

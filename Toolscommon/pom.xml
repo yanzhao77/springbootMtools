@@ -119,6 +119,13 @@
             <scope>compile</scope>
         </dependency>
 
+        <!--math 计算-->
+        <dependency>
+            <groupId>org.mariuszgromada.math</groupId>
+            <artifactId>MathParser.org-mXparser</artifactId>
+            <version>5.2.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
