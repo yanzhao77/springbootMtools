@@ -32,7 +32,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.16</version>
+        <version>3.2.3</version>
         <relativePath/>
     </parent>
 
@@ -67,6 +67,8 @@
         <module>swaggerdemo</module>
         <module>Toolscommon</module>
         <module>webdemo</module>
+        <module>oracle_inAndOutData</module>
+        <module>testdbdemo</module>
     </modules>
 
 
@@ -81,6 +83,7 @@
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+            <version>3.1.0.M1</version>
         </dependency>
 
         <dependency>

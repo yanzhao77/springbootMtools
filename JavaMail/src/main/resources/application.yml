@@ -17,8 +17,8 @@
 #    properties:
 #      mail:
 #        smtp:
-#          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+#          socketFactoryClass: jakarta.net.ssl.SSLSocketFactory
 #        #???? DEBUG ???????????????????????????????
 #        debug: true
 
-config.path=E:\\ideaDownload\\springbootMtools\\javaMail2\\src\\main\\resources\\emailConfig.properties
+config.path： E:\\ideaDownload\\springbootMtools\\javaMail2\\src\\main\\resources\\emailConfig.properties

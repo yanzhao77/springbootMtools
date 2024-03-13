@@ -4,7 +4,7 @@ package com.yz.curddemo.bean;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @author yanzhao

@@ -1,6 +1,6 @@
 package com.yz.javamail.config;
 
-import javax.mail.*;
+import jakarta.mail.*;
 
 public class EmailAuthenticator extends Authenticator{
 

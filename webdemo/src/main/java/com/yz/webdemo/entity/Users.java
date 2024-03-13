@@ -5,12 +5,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Max;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,14 +27,14 @@ import lombok.NoArgsConstructor;
 public class Users implements Serializable, UserDetails {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Max(value = 10000, message = "最大10000")
+    @Max(value = 10000, message = "最大10000")
     @Min(value = 1, message = "最小1")
     @NotNull(message = "不能为空")
-	
+
     private Integer id;
 
     @NotBlank(message = "不能为空")
@@ -47,48 +47,48 @@ public class Users implements Serializable, UserDetails {
 
     private String remake;
     private RoleInfo roleInfo;
-    
+
     private String menuus;
-    
-    
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-      return Arrays.asList(new SimpleGrantedAuthority(menuus));
+        return Arrays.asList(new SimpleGrantedAuthority(menuus));
     }
 
     @Override
     public String getPassword() {
-      return pwd;
+        return pwd;
     }
 
     @Override
     public String getUsername() {
-      return username;
+        return username;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-      return true;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-      return true;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-      return true;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-      return true;
+        return true;
     }
-    
+
     public String getRoleName() {
-		return roleInfo.getRoleName();
-		
-	}
+        return roleInfo.getRoleName();
+
+    }
 
 }

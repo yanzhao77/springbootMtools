@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="Windows-31J"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace='com.softroad.testdbdemo.mapper.LoginMapper'>
+
+    <resultMap id='BaseResultMap' type='com.softroad.testdbdemo.entity.Login'>
+        <result column='LOGIN_ID' jdbcType='VARCHAR' property='loginid'/>
+        <result column='PASSWORD' jdbcType='VARCHAR' property='loginpd'/>
+        <result column='SYOZOKUCD' jdbcType='VARCHAR' property='syozokucd'/>
+        <result column='INI_MENUID' jdbcType='VARCHAR' property='menuid'/>
+        <result column='PRINTIP' jdbcType='VARCHAR' property='printip'/>
+        <result column='STATUSFLG' jdbcType='VARCHAR' property='statusflg'/>
+        <result column='UPDATE_TIME' jdbcType='DATE' property='uptime'/>
+    </resultMap>
+
+    <select id="selectByKeys" parameterType='java.lang.String' resultMap='BaseResultMap'>
+        SELECT LOGIN_ID,PASSWORD,SYOZOKUCD,INI_MENUID,PRINTIP,STATUSFLG,UPDATE_TIME FROM TOSOFILE.USER_TBL
+        <where>
+            LOGIN_ID = #{username,jdbcType=VARCHAR}
+            AND PASSWORD = #{password,jdbcType=VARCHAR}
+        </where>
+    </select>
+    <select id="selectMaxSeqNo" resultType="java.lang.String">
+        SELECT MAX(LOGIN_ID) FROM TOSOFILE.USER_TBL
+    </select>
+    <select id="selectAllUser" resultType="com.softroad.testdbdemo.entity.Login">
+        SELECT LOGIN_ID,PASSWORD,SYOZOKUCD,INI_MENUID,PRINTIP,STATUSFLG,UPDATE_TIME FROM TOSOFILE.USER_TBL
+    </select>
+</mapper>

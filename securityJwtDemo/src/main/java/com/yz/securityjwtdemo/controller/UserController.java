@@ -4,6 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.yz.securityjwtdemo.entity.Users;
 import com.yz.securityjwtdemo.mapper.UserMapper;
 import com.yz.securityjwtdemo.service.UserServiceI;
+import jakarta.annotation.Resource;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,9 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.annotation.Resource;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -74,7 +75,7 @@ public class UserController {
 
 	@DeleteMapping("/deleteById")
 	public ModelAndView deleteById(@NotNull @Size(max = 10000, min = 1) int id, BindingResult rst,
-			RedirectAttributes attr) {
+								   RedirectAttributes attr) {
 		ModelAndView view = new ModelAndView();
 		if (rst.hasErrors()) {
 			List<ObjectError> allErrors = rst.getAllErrors();

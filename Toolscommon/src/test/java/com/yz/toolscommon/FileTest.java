@@ -31,10 +31,10 @@ public class FileTest {
     @Test
     public void test3() {
         Map<String, String> stringMap = new HashMap<>();
-        stringMap.put("D:\\workspace1\\AscoOut\\FileToDB\\CreatTable\\INDEX", "index.sql");
-        stringMap.put("D:\\workspace1\\AscoOut\\FileToDB\\CreatTable\\SEQUENCE", "sequence.sql");
-        stringMap.put("D:\\workspace1\\AscoOut\\FileToDB\\CreatTable\\TABLE", "table.sql");
-        stringMap.put("D:\\workspace1\\AscoOut\\FileToDB\\CreatTable\\TRIGGER", "trigger.sql");
+        stringMap.put("D:\\开发一部\\023801.asp\\02_移行後\\02_開発区\\05_DB設計\\DDL\\FileToDB\\CreatTable\\INDEX", "index.sql");
+        stringMap.put("D:\\开发一部\\023801.asp\\02_移行後\\02_開発区\\05_DB設計\\DDL\\FileToDB\\CreatTable\\SEQUENCE", "sequence.sql");
+        stringMap.put("D:\\开发一部\\023801.asp\\02_移行後\\02_開発区\\05_DB設計\\DDL\\FileToDB\\CreatTable\\TABLE", "table.sql");
+        stringMap.put("D:\\开发一部\\023801.asp\\02_移行後\\02_開発区\\05_DB設計\\DDL\\FileToDB\\CreatTable\\TRIGGER", "trigger.sql");
         stringMap.forEach((dirPath, sqlFileName) -> {
             try {
                 FileUtils.readAllFileToFile(dirPath, new File(dirPath).getParent() + "\\" + sqlFileName);

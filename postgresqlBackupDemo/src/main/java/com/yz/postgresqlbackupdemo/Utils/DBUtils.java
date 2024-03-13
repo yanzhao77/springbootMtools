@@ -14,7 +14,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 
-import javax.servlet.http.PushBuilder;
+import jakarta.servlet.http.PushBuilder;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
